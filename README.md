@@ -1,1 +1,1 @@
-# customer-chrun
+# customer-churn
