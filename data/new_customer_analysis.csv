@@ -1,0 +1,21 @@
+customerID;Gender;SeniorCitizen;Partner;Dependents;Tenure;PhoneService;MultipleLines;InternetService;OnlineSecurity;OnlineBackup;DeviceProtection;TechSupport;StreamingTV;StreamingMovies;Contract;PaperlessBilling;PaymentMethod;MonthlyCharges;TotalCharges
+8773-RKXTP;Female;0;No;No;35;Yes;No;DSL;Yes;No;No;No;No;No;One year;No;Manual;54.85;1934.5
+1374-KVMWE;Male;0;Yes;No;2;Yes;No;Fiber optic;No;No;Yes;No;Yes;No;Monthly;Yes;Manual;69.7;118.9
+7392-BMMED;Female;1;No;No;56;No;No;DSL;Yes;Yes;Yes;Yes;No;No;One year;No;Bank transfer (automatic);42.3;2341.9
+3549-NHRJG;Male;0;Yes;No;3;Yes;Yes;DSL;No;Yes;No;No;Yes;No;Monthly;Yes;Manual;63.5;195.6
+6984-YZZOT;Female;1;No;No;70;Yes;No;DSL;Yes;Yes;No;No;No;No;Two year;No;Credit card (automatic);56.9;3880.7
+4820-LOKFD;Male;0;No;No;8;Yes;No;Fiber optic;No;No;No;No;No;No;Monthly;Yes;Manual;75.5;589.9
+1937-QSMCD;Female;0;No;No;10;Yes;Yes;DSL;Yes;Yes;No;No;No;No;One year;No;Bank transfer (automatic);47.9;479.0
+5389-DZKUF;Female;1;No;No;58;Yes;No;Fiber optic;No;No;No;No;No;No;Two year;No;Credit card (automatic);80.1;4550.1
+6165-HZBVV;Male;0;Yes;Yes;15;Yes;Yes;DSL;Yes;Yes;Yes;Yes;Yes;No;One year;No;Manual;51.7;746.2
+8163-DCGAK;Female;0;No;No;6;Yes;No;DSL;No;No;No;No;No;No;Monthly;Yes;Manual;49.9;299.4
+9132-HJEBT;Male;0;Yes;No;28;Yes;No;Fiber optic;Yes;No;Yes;No;Yes;No;One year;No;Manual;71.5;2002.0
+3298-DXMVW;Female;1;No;No;70;Yes;No;DSL;No;No;No;No;Yes;No;Two year;No;Bank transfer (automatic);59.9;4200.7
+2391-FRZGV;Male;0;No;No;4;No;No;DSL;No;No;No;No;No;No;Monthly;Yes;Manual;25.3;101.2
+7345-TWJNH;Female;0;Yes;No;17;Yes;Yes;Fiber optic;No;No;No;No;Yes;No;Monthly;Yes;Manual;68.8;1169.6
+1905-YKFWV;Male;1;No;No;59;Yes;No;DSL;Yes;Yes;Yes;Yes;No;No;One year;No;Bank transfer (automatic);42.6;2523.4
+2763-UTYCC;Female;0;Yes;No;30;Yes;No;DSL;Yes;Yes;No;No;No;No;Monthly;Yes;Manual;58.9;1767.0
+8430-WFPAN;Male;0;No;No;1;No;No;DSL;No;No;No;No;No;No;Monthly;Yes;Manual;29.8;29.8
+1938-QAZFC;Female;0;Yes;No;40;Yes;No;DSL;Yes;Yes;Yes;Yes;Yes;Yes;One year;No;Bank transfer (automatic);53.2;2128.0
+7034-VZMBH;Male;0;No;No;7;Yes;No;Fiber optic;No;No;No;No;No;No;Monthly;Yes;Manual;75.2;526.4
+8537-DRLBC;Female;0;No;No;5;Yes;Yes;DSL;No;Yes;No;No;No;No;Monthly;Yes;Manual;51.5;257.5
