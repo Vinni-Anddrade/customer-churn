@@ -2,19 +2,18 @@ import pandas as pd
 import mlflow
 from mlflow import MlflowClient
 from sklearn.preprocessing import StandardScaler
-from utils.utils import read_yaml
+from src.utils.utils import read_yaml
 
 
 def get_data():
-    path = "../data/new_customer_analysis.csv"
-    breakpoint()
+    path = "./data/new_customer_analysis.csv"
     df = pd.read_csv(path, header=0, sep=";")
 
     return df
 
 
 def data_treatment(df: pd.DataFrame, model_name):
-    config_path = "./config/schema.yaml"
+    config_path = "./src/config/schema.yaml"
     schema_file = read_yaml(config_path)
     columns = schema_file["columns"]
 
@@ -51,7 +50,6 @@ def data_treatment(df: pd.DataFrame, model_name):
         scaler = StandardScaler().fit(df)
         return scaler.transform(df)
 
-    breakpoint()
     df = make_one_hot_encoding(df)
     df = check_columns(df, columns)
     df = drop_cols(df)
@@ -96,15 +94,3 @@ def get_production_model():
         print(e)
         print("No model was found in production.")
         return None
-
-
-if __name__ == "__main__":
-
-    predict_df = get_data()
-
-    model, model_name = get_production_model()
-    df_treated = data_treatment(predict_df, model_name)
-
-    result = model.predict(df_treated)
-
-    print(result)
