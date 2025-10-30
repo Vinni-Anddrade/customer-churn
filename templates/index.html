@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Executar Modelo - Interface Simples</title>
+  <style>
+    :root {
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --accent: #2563eb;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: var(--bg);
+      color: #1f2937;
+    }
+    .wrap {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    .card {
+      width: 100%;
+      max-width: 480px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      color: #111827;
+    }
+    p.lead {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    button.primary {
+      background: var(--accent);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+    button.primary:hover {
+      background: #1d4ed8;
+    }
+    button.primary:active {
+      transform: scale(0.98);
+    }
+    button.primary[disabled] {
+      opacity: 0.6;
+      cursor: default;
+    }
+    #status {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-top-color: var(--accent);
+      animation: spin .8s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main">
+      <h1>Executar modelo</h1>
+      <p class="lead">Clique no botão abaixo para executar o modelo de Churn de clientes.</p>
+
+      <button id="runBtn" class="primary">Executar modelo</button>
+      <div id="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+<script>
+const runBtn = document.getElementById('runBtn');
+const statusEl = document.getElementById('status');
+
+
+function setStatus(html){ statusEl.innerHTML = html }
+
+
+runBtn.addEventListener('click', ()=>{
+
+const form = document.createElement('form');
+form.method = 'POST';
+form.action = '/model_result';
+document.body.appendChild(form);
+form.submit();
+});
+</script>
+</body>
+</html>
