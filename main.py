@@ -1,6 +1,10 @@
-from src.inference import get_data, get_production_model, data_treatment
+from src.inference import get_data, get_production_model
 from flask import Flask, request, jsonify
 import pandas as pd
+from src.components.data_reader import DataReader
+from src.components.data_treatment import DataTreatment
+import os
+from pathlib import Path
 
 
 app = Flask(__name__)
@@ -9,14 +13,17 @@ app = Flask(__name__)
 def main(data):
     # predict_df = get_data() # Reading data from our csv folder
     predict_df = pd.DataFrame(data["records"])  # Getting data from postman
-
     model, model_name = get_production_model()
-    df_treated = data_treatment(predict_df, model_name)
 
-    result = [str(i) for i in model.predict(df_treated)]
-    indexation = [str(i) for i in range(1, len(result) + 1)]
-    output_dict = dict(zip(indexation, result))
-    json_output = {"results": [output_dict]}
+    treatment_manager = DataTreatment(predict_df, model_name)
+    breakpoint()
+    result = [str(i) for i in model.predict(treatment_manager.df)]
+
+    predict_df["ChurnPrediction"] = result
+    predict_df.rename(columns={"customerID": "CustomerID"}, inplace=True)
+
+    json_output = predict_df.to_dict(orient="records")
+    json_output = {"records": json_output}
 
     return jsonify(json_output)
 
@@ -29,9 +36,8 @@ def home():
 @app.route("/execute_model", methods=["POST"])
 def model_execution():
     data = request.get_json()
-    output_api = main(data)
-
-    return output_api
+    output_model = main(data)
+    return output_model
 
 
 if __name__ == "__main__":

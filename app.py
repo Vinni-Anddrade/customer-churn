@@ -1,122 +1,20 @@
 from flask import Flask, render_template
 import requests
 from flask_cors import CORS
+import os
+from pathlib import Path
+from src.components.data_reader import DataReader
 
 
-payload = {
-    "records": [
-        {
-            "customerID": "8773-RKXTP",
-            "Gender": "Female",
-            "SeniorCitizen": 0,
-            "Partner": "No",
-            "Dependents": "No",
-            "Tenure": 35,
-            "PhoneService": "Yes",
-            "MultipleLines": "No",
-            "InternetService": "DSL",
-            "OnlineSecurity": "Yes",
-            "OnlineBackup": "No",
-            "DeviceProtection": "No",
-            "TechSupport": "No",
-            "StreamingTV": "No",
-            "StreamingMovies": "No",
-            "Contract": "One year",
-            "PaperlessBilling": "No",
-            "PaymentMethod": "Manual",
-            "MonthlyCharges": 54.85,
-            "TotalCharges": 1934.5,
-        },
-        {
-            "customerID": "1374-KVMWE",
-            "Gender": "Male",
-            "SeniorCitizen": 0,
-            "Partner": "Yes",
-            "Dependents": "No",
-            "Tenure": 2,
-            "PhoneService": "Yes",
-            "MultipleLines": "No",
-            "InternetService": "Fiber optic",
-            "OnlineSecurity": "No",
-            "OnlineBackup": "No",
-            "DeviceProtection": "Yes",
-            "TechSupport": "No",
-            "StreamingTV": "Yes",
-            "StreamingMovies": "No",
-            "Contract": "Monthly",
-            "PaperlessBilling": "Yes",
-            "PaymentMethod": "Manual",
-            "MonthlyCharges": 69.7,
-            "TotalCharges": 118.9,
-        },
-        {
-            "customerID": "7392-BMMED",
-            "Gender": "Female",
-            "SeniorCitizen": 1,
-            "Partner": "No",
-            "Dependents": "No",
-            "Tenure": 56,
-            "PhoneService": "No",
-            "MultipleLines": "No",
-            "InternetService": "DSL",
-            "OnlineSecurity": "Yes",
-            "OnlineBackup": "Yes",
-            "DeviceProtection": "Yes",
-            "TechSupport": "Yes",
-            "StreamingTV": "No",
-            "StreamingMovies": "No",
-            "Contract": "One year",
-            "PaperlessBilling": "No",
-            "PaymentMethod": "Bank transfer (automatic)",
-            "MonthlyCharges": 42.3,
-            "TotalCharges": 2341.9,
-        },
-        {
-            "customerID": "3549-NHRJG",
-            "Gender": "Male",
-            "SeniorCitizen": 0,
-            "Partner": "Yes",
-            "Dependents": "No",
-            "Tenure": 3,
-            "PhoneService": "Yes",
-            "MultipleLines": "Yes",
-            "InternetService": "DSL",
-            "OnlineSecurity": "No",
-            "OnlineBackup": "Yes",
-            "DeviceProtection": "No",
-            "TechSupport": "No",
-            "StreamingTV": "Yes",
-            "StreamingMovies": "No",
-            "Contract": "Monthly",
-            "PaperlessBilling": "Yes",
-            "PaymentMethod": "Manual",
-            "MonthlyCharges": 63.5,
-            "TotalCharges": 195.6,
-        },
-        {
-            "customerID": "6984-YZZOT",
-            "Gender": "Female",
-            "SeniorCitizen": 1,
-            "Partner": "No",
-            "Dependents": "No",
-            "Tenure": 70,
-            "PhoneService": "Yes",
-            "MultipleLines": "No",
-            "InternetService": "DSL",
-            "OnlineSecurity": "Yes",
-            "OnlineBackup": "Yes",
-            "DeviceProtection": "No",
-            "TechSupport": "No",
-            "StreamingTV": "No",
-            "StreamingMovies": "No",
-            "Contract": "Two year",
-            "PaperlessBilling": "No",
-            "PaymentMethod": "Credit card (automatic)",
-            "MonthlyCharges": 56.9,
-            "TotalCharges": 3880.7,
-        },
-    ]
-}
+def main():
+    PATH = Path().resolve()
+    file_path = os.path.join(PATH, "data", "new_customer_analysis.csv")
+    reader_manager = DataReader(file_path)
+    predict_df = reader_manager.read_data_from_csv()
+    json_output = predict_df.to_dict(orient="records")
+    json_output = {"records": json_output}
+
+    return json_output
 
 
 app = Flask(__name__)
@@ -130,11 +28,11 @@ def home():
 
 @app.route("/model_result", methods=["GET", "POST"])
 def model_result():
+    payload = main()
     url = "http://127.0.0.1:5050/execute_model"
     response = requests.post(url=url, json=payload)
     data = response.json()
-
-    results = data.get("results", [])
+    results = data.get("records", [])
 
     headers = results[0].keys() if results else []
     return render_template("model_result.html", headers=headers, results=results)

@@ -71,6 +71,7 @@
       margin-top: 16px;
       font-size: 14px;
       color: var(--muted);
+      min-height: 24px;
     }
     .spinner {
       width: 18px;
@@ -97,22 +98,25 @@
     </div>
   </div>
 
-<script>
-const runBtn = document.getElementById('runBtn');
-const statusEl = document.getElementById('status');
+  <script>
+  const runBtn = document.getElementById('runBtn');
+  const statusEl = document.getElementById('status');
 
+  runBtn.addEventListener('click', () => {
+    // Desativa o botão para evitar múltiplos cliques
+    runBtn.disabled = true;
+    runBtn.textContent = 'Executando...';
 
-function setStatus(html){ statusEl.innerHTML = html }
+    // Mostra o spinner
+    statusEl.innerHTML = '<span class="spinner"></span>O modelo está sendo executado. Aguarde...';
 
-
-runBtn.addEventListener('click', ()=>{
-
-const form = document.createElement('form');
-form.method = 'POST';
-form.action = '/model_result';
-document.body.appendChild(form);
-form.submit();
-});
-</script>
+    // Cria e envia o formulário (POST)
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/model_result';
+    document.body.appendChild(form);
+    form.submit();
+  });
+  </script>
 </body>
 </html>

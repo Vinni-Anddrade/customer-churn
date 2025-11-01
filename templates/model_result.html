@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dados de Clientes - Churn</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Resultado Modelo de Churn</title>
   <style>
     :root {
       --bg: #f9fafb;
@@ -29,7 +30,7 @@
     }
     .card {
       width: 100%;
-      max-width: 960px;
+      max-width: 1200px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -53,9 +54,10 @@
       color: white;
     }
     th, td {
-      padding: 12px 16px;
+      padding: 10px 14px;
       border: 1px solid var(--border);
       text-align: left;
+      white-space: nowrap;
     }
     tbody tr:nth-child(even) {
       background: #f3f4f6;
@@ -69,26 +71,26 @@
   <div class="wrap">
     <div class="card">
       <h1>Resultado Modelo de Churn</h1>
+
       <table>
         <thead>
           <tr>
-            <th>Cliente</th>
-            <th>Idade</th>
-            <th>Renda</th>
-            <th>Churn</th>
+            {% for h in headers %}
+              <th>{{ h }}</th>
+            {% endfor %}
           </tr>
         </thead>
         <tbody>
-          {% for l in dados %}
-          <tr>
-            <td>{{ l['Cliente'] }}</td>
-            <td>{{ l['Idade'] }}</td>
-            <td>R$ {{ l['Renda'] }}</td>
-            <td>{{ l['Churn'] }}</td>
-          </tr>
+          {% for row in results %}
+            <tr>
+              {% for h in headers %}
+                <td>{{ row[h] }}</td>
+              {% endfor %}
+            </tr>
           {% endfor %}
         </tbody>
       </table>
+
     </div>
   </div>
 </body>
