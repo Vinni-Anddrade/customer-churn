@@ -1,5 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+import os
+from pathlib import Path
 
 from src.utils.utils import read_yaml
 
@@ -8,7 +10,6 @@ class DataTreatment:
     def __init__(self, df: pd.DataFrame, model_name: str):
         self.df = df
         self.model_name = model_name
-        breakpoint()
         self.data_configuration()
         self.make_one_hot_encoding()
         self.check_columns(self.columns)
@@ -21,8 +22,12 @@ class DataTreatment:
         #     self.df = self.standardize_data()
 
     def data_configuration(self):
-        config_path = "./src/config/schema.yaml"
-        schema_file = read_yaml(config_path)
+        PATH_DIR = Path(__file__).resolve().parent.parent.parent
+        FILE_PATH = os.path.join(PATH_DIR, "src", "config", "schema.yaml")
+
+        print(PATH_DIR)
+        print(FILE_PATH)
+        schema_file = read_yaml(FILE_PATH)
         self.columns = schema_file["columns"]
 
         self.df = self.df.drop(["customerID"], axis=1)

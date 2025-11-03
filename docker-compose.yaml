@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   app:
     build:
@@ -8,9 +6,9 @@ services:
     ports:
       - "8085:8085"
     depends_on:
-      - api
+      - main
     environment:
-      - API_URL=http://api:5050
+      - API_URL=http://main:5050
 
   main:
     build:

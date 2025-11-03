@@ -15,7 +15,6 @@ def main(data):
 
     treatment_manager = DataTreatment(predict_df, model_name)
     result = [str(i) for i in model.predict(treatment_manager.df)]
-
     predict_df["ChurnPrediction"] = result
     predict_df.rename(columns={"customerID": "CustomerID"}, inplace=True)
 
@@ -30,7 +29,7 @@ def home():
     return "To execute the model, go to route: /execute_model with the data"
 
 
-@app.route("/execute_model", methods=["POST"])
+@app.route("/execute_model", methods=["GET", "POST"])
 def model_execution():
     data = request.get_json()
     output_model = main(data)
@@ -38,4 +37,4 @@ def model_execution():
 
 
 if __name__ == "__main__":
-    app.run(port=5050, debug=True)
+    app.run(host="0.0.0.0", port=5050)

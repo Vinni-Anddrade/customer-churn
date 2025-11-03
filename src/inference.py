@@ -11,7 +11,7 @@ def get_data():
 
 
 def check_production_model():
-    mlflow.set_tracking_uri("http://localhost:5000")
+    mlflow.set_tracking_uri("http://host.docker.internal:5000")
     client = MlflowClient()
     registered_models = client.search_registered_models()
 
@@ -33,7 +33,7 @@ def get_production_model():
 
     model_name = check_production_model()
 
-    mlflow.set_tracking_uri("http://localhost:5000")
+    mlflow.set_tracking_uri("http://host.docker.internal:5000")
     model_uri = f"models:/{model_name}@prod"
     try:
         model = mlflow.pyfunc.load_model(model_uri=model_uri)

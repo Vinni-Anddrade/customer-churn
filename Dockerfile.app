@@ -8,4 +8,4 @@ RUN python -m pip install --upgrade pip \
 
 EXPOSE 8085
 
-CMD ["python", "app.py"]
+CMD ["python", "-u", "app.py"]

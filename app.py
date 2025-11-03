@@ -3,8 +3,26 @@ from flask_cors import CORS
 import os
 from pathlib import Path
 import requests
+import time
 
 from src.components.data_reader import DataReader
+
+
+def wait_for_api(url, timeout=30):
+    start_time = time.time()
+    while True:
+        try:
+            response = requests.get(url)
+            if response.status_code < 500:
+                print(f"API {url} está pronta!")
+                return True
+        except requests.exceptions.RequestException:
+            pass
+        if time.time() - start_time > timeout:
+            print(f"Timeout! API {url} não respondeu em {timeout} segundos.")
+            return False
+        print("Esperando API ficar pronta...")
+        time.sleep(2)
 
 
 def main():
@@ -21,7 +39,7 @@ def main():
 app = Flask(__name__)
 CORS(app)
 
-API_URL = os.getenv("API_URL", "http://api:5050")
+API_URL = os.getenv("API_URL", "http://main:5050")
 
 
 @app.route("/")
@@ -41,4 +59,5 @@ def model_result():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8085, debug=True)
+    wait_for_api(f"{API_URL}/execute_model")
+    app.run(host="0.0.0.0", port=8085)
