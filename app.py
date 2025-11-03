@@ -21,6 +21,8 @@ def main():
 app = Flask(__name__)
 CORS(app)
 
+API_URL = os.getenv("API_URL", "http://api:5050")
+
 
 @app.route("/")
 def home():
@@ -30,8 +32,7 @@ def home():
 @app.route("/model_result", methods=["GET", "POST"])
 def model_result():
     payload = main()
-    url = "http://127.0.0.1:5050/execute_model"
-    response = requests.post(url=url, json=payload)
+    response = requests.post(url=f"{API_URL}/execute_model", json=payload)
     data = response.json()
     results = data.get("records", [])
 
