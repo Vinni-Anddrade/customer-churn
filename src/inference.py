@@ -1,8 +1,6 @@
 import pandas as pd
 import mlflow
 from mlflow import MlflowClient
-from sklearn.preprocessing import StandardScaler
-from src.utils.utils import read_yaml
 
 
 def get_data():

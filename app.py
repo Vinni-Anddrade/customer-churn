@@ -1,8 +1,9 @@
 from flask import Flask, render_template
-import requests
 from flask_cors import CORS
 import os
 from pathlib import Path
+import requests
+
 from src.components.data_reader import DataReader
 
 

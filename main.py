@@ -1,10 +1,8 @@
-from src.inference import get_data, get_production_model
 from flask import Flask, request, jsonify
 import pandas as pd
-from src.components.data_reader import DataReader
+
 from src.components.data_treatment import DataTreatment
-import os
-from pathlib import Path
+from src.inference import get_production_model
 
 
 app = Flask(__name__)
@@ -16,7 +14,6 @@ def main(data):
     model, model_name = get_production_model()
 
     treatment_manager = DataTreatment(predict_df, model_name)
-    breakpoint()
     result = [str(i) for i in model.predict(treatment_manager.df)]
 
     predict_df["ChurnPrediction"] = result

@@ -1,6 +1,7 @@
 import pandas as pd
-from src.utils.utils import read_yaml
 from sklearn.preprocessing import StandardScaler
+
+from src.utils.utils import read_yaml
 
 
 class DataTreatment:
